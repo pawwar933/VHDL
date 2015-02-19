@@ -9,8 +9,8 @@ architecture przerzutnik of przerzutnik_t is
 			variable tq:bit;
 		begin
 			if R = '1' then tq:='0';
-			elsif C'event and C='1' and T='1' then 
-			tq:= not tq;
+			elsif C'event and C='1' and T='1' then  --  można też elsif C'event and C='1' then
+			tq:= not tq;				--tq:=tq xor T;
 		end if;
         	Q<=tq;
 	end process;
