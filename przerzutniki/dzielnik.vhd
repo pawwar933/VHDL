@@ -13,7 +13,7 @@ architecture przerzutnik of przerzutnik_d is
 		 begin
 		 tmp:=D;
 		 if C'event and C='1' then  Q<=tmp;
-									D<=not tmp;
+					D<=not tmp;
 		 end if;
 	end process;
 end przerzutnik;
