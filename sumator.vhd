@@ -1,14 +1,14 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity sumatortest is
+entity sumator is
 	port(
 	a,b,cp :in std_logic;
 	s,cn   :out std_logic
 	);
-	end sumatortest;
+	end sumator;
 	
-architecture sumator of sumatortest is
+architecture sumator of sumator is
   signal tmp,tmp1,tmp2:std_logic;
   begin
    tmp <= a xor b;
