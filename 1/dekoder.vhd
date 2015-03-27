@@ -5,16 +5,17 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 
 entity dekoder is
-    Port ( koniec_odczytu : in  STD_LOGIC_vector(10 downto 0);
+    Port ( kod_klawisza : in  STD_LOGIC_vector(10 downto 0);
+				trans:in STD_LOGIC;
            s : out  STD_LOGIC_VECTOR(7 downto 0));
 end dekoder;
 
 architecture Behavioral of dekoder is
 
 begin
-dekoder7:	process(koniec_odczytu)
+dekoder7:	process(trans)
 			begin 
-				case odczyt_klawisza is 
+				case kod_klawisza is 
 				when "11000101100"=> s<="01001000";-- jedynka 
 				when "11000111100"=> s<="10111010"; --dwójka
 				when "11001001100"=> s<="11011010";--itd
