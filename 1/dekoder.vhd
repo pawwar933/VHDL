@@ -1,35 +1,11 @@
-----------------------------------------------------------------------------------
--- Company: 
--- Engineer: 
--- 
--- Create Date:    21:09:44 03/27/2015 
--- Design Name: 
--- Module Name:    bla - Behavioral 
--- Project Name: 
--- Target Devices: 
--- Tool versions: 
--- Description: 
---
--- Dependencies: 
---
--- Revision: 
--- Revision 0.01 - File Created
--- Additional Comments: 
---
-----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_ARITH.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
----- Uncomment the following library declaration if instantiating
----- any Xilinx primitives in this code.
---library UNISIM;
---use UNISIM.VComponents.all;
 
 entity dekoder is
-    Port ( clk : in  STD_LOGIC;
-				odczyt_klawisza : in  STD_LOGIC_vector(10 downto 0);
+    Port ( odczyt_klawisza : in  STD_LOGIC_vector(10 downto 0);
            s : out  STD_LOGIC_VECTOR(7 downto 0));
 end dekoder;
 
@@ -51,7 +27,7 @@ dekoder7:	process(odczyt_klawisza)
 				when "00100010111"=> s<="11101110";
 				when others=> s<="00010000";
 				end case;
-			end process dekoder;
+			end process dekoder7;
 		
 end Behavioral;
 
