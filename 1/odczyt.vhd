@@ -10,7 +10,7 @@ end odczyt;
 
 architecture Behavioral of odczyt is
 	signal licznik:integer range 0 to 10:=0;
-	--signal koniec_trans:std_logic:='0';
+	signal koniec_trans:std_logic:='0';
 begin
 
 odczyt_klawiatury: process(clk_klaw)
@@ -19,6 +19,7 @@ odczyt_klawiatury: process(clk_klaw)
 				odczyt_klawisz(licznik)<=bit_klaw;
 				licznik<=licznik+1;
 				if (licznik = 10) then licznik<=0;
+				koniec_trans<= not koniec_trans;
 				end if;
 		end if;
 	end process odczyt_klawiatury;
