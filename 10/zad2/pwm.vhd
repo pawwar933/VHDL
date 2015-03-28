@@ -22,7 +22,7 @@ begin
 if  klawisz'event and klawisz='1' then
 		if(wypelnienie < 20) then 
 				wypelnienie:=wypelnienie+'1';
-		else wypelnienie:="00000";
+		else wypelnienie:=(others=>'0');
 		end if;
 	end if;
 	pwmm<=wypelnienie;
