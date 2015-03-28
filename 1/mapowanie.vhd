@@ -1,4 +1,3 @@
-
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_ARITH.ALL;
@@ -30,4 +29,3 @@ begin
  map2: dekoder port map(kod_klawisza=>kod_klawisz,trans=>koniec,s=>wyswietlacz);
 
 end Behavioral;
-
