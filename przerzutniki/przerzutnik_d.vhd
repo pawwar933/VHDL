@@ -1,6 +1,11 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_ARITH.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+
 entity przerzutnik_d is
-	port(C,D :in bit;
-		 Q:out bit);
+	port(C,D :in std_logic;
+		 Q:out std_logic);
 end przerzutnik_d;
 
 architecture przerzutnik of przerzutnik_d is
