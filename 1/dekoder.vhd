@@ -11,11 +11,16 @@ entity dekoder is
 end dekoder;
 
 architecture Behavioral of dekoder is
-
+		--	signal tmp:std_logic_vector(10 downto 0);
+			
 begin
-dekoder7:	process(trans)
+
+				--tmp<=kod_klawisza when trans'event;
+dekoder7:	process
 			begin 
-				case kod_klawisza is 
+			wait until (trans'event);
+							
+					case kod_klawisza is 
 				when "11000101100"=> s<="01001000";-- jedynka 
 				when "11000111100"=> s<="10111010"; --dwójka
 				when "11001001100"=> s<="11011010";--itd
@@ -28,7 +33,13 @@ dekoder7:	process(trans)
 				when "11010001010"=> s<="11101110";
 				when others=> s<="00010000";
 				end case;
-			end process dekoder7;
-		
-end Behavioral;
 
+--
+--			if tmp= "11000101100" then s<="01001000";
+--			else s<="00010000";
+--			end if;
+--			s<="00010000";
+--			kicz<=kicz+1;
+			end process dekoder7;
+
+end Behavioral;
