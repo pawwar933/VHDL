@@ -29,4 +29,3 @@ odczyt_klawiatury: process(clk_klaw)
 			
 
 end Behavioral;
-
