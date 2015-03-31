@@ -33,13 +33,5 @@ dekoder7:	process
 				when "11010001010"=> s<="11101110";
 				when others=> s<="00010000";
 				end case;
-
---
---			if tmp= "11000101100" then s<="01001000";
---			else s<="00010000";
---			end if;
---			s<="00010000";
---			kicz<=kicz+1;
 			end process dekoder7;
-
 end Behavioral;
