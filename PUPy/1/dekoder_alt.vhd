@@ -31,6 +31,7 @@ dekoder7:	process
 				when x"3E"=> s<="11111110";
 				when x"46"=> s<="11011110";
 				when x"45"=> s<="11101110";
+				when x"F0"=> NULL;--nie rób nic?
 				when others=> s<="00010000";
 					end case;
 		end process dekoder7;
