@@ -53,6 +53,7 @@ dekoder7:	process(trans)
 				elsif (kod_klawisza(8 downto 1)= x"F0" and (tmp /=	 "01001000")) then 
 						 NULL;
 				else s<="00010000";
+				tmp<="00010000";
 			end if;
 		end process dekoder7;
 
