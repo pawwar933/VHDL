@@ -16,9 +16,9 @@ architecture Behavioral of dekoder is
 begin
 
 				--tmp<=kod_klawisza when trans'event;
-dekoder7:	process
+dekoder7:	process(trans)
 			begin 
-			wait until (trans'event);
+			--wait until (trans'event);
 							
 				if (kod_klawisza(8 downto 1)= x"16" and (tmp /=	 "01001000")) then 
 						 s<="01001000";
