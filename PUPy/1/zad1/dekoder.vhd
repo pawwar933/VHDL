@@ -6,13 +6,12 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity dekoder is
     Port ( kod_klawisza : in  STD_LOGIC_vector(7 downto 0);
-				   s : out  STD_LOGIC_VECTOR(7 downto 0));
+		s : out  STD_LOGIC_VECTOR(7 downto 0));
 end dekoder;
 
 architecture Behavioral of dekoder is
 		begin
 
-			
 dekoder7:	process(kod_klawisza)
 			begin 
 			
@@ -22,7 +21,6 @@ dekoder7:	process(kod_klawisza)
 						 s<="10111010";
 				elsif (kod_klawisza= x"26") then 
 						 s<="11011010";
-						 tmp<="11011010";
 				elsif (kod_klawisza= x"25") then 
 						 s<="01011100";
 				elsif (kod_klawisza= x"2E") then 
