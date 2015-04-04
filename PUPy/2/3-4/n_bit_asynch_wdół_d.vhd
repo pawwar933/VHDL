@@ -24,7 +24,7 @@ Petla:
 	   for i in 1 to n-1 generate
       begin
      licznik:przerzutnikd port map(clk=>tmp(2*i-1),zd=>tmp(2*i),q=>tmp(2*i+1),nq=>tmp(2*i));
-   end generate;
+   end generate; 
 		
 Petla2:
    for j in 0 to n-1 generate
