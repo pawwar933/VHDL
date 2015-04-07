@@ -6,13 +6,13 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 
 
-entity wgore is
+entity wdol is
 	generic(n:integer range 0 to 10:=4);
     Port ( clk : in  STD_LOGIC;
 				y : out std_logic_vector(n-1 downto 0));
-end wgore;
+end wdol;
 
-architecture Behavioral of wgore is
+architecture Behavioral of wdol is
 component jk is
 Port( j,k,clk	:	in std_logic;
 		q,nq	:	out std_logic);
