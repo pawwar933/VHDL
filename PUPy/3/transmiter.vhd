@@ -6,7 +6,7 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 entity transmiter is
     Port ( dataIn : in  STD_LOGIC_VECTOR (7 downto 0);
            CLK9600,RST,SEND_VALID : in  STD_LOGIC;
-           TXOUT : out  STD_LOGIC);
+           TXOUT : out  STD_LOGIC:='1');
 end transmiter;
 
 architecture Behavioral of transmiter is
