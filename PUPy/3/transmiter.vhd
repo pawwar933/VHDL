@@ -33,29 +33,28 @@ begin
 	end if;
   end process;
   
- process(state,CLK9600)
-	begin
-		case state is 
-	when start =>
+	process(state,clk9600)
+		begin
+	if state = start then
 		TXOUT <= '0';--bit startu
 		nextstate <= przesyl;
-	when przesyl =>
-		if CLK9600'event and CLK9600 = '1'  then
-		TXOUT <= dane_buff(licznik);
-		licznik <= licznik + 1;
-			if licznik = 6 then
-				nextstate <= stop;
-			elsif licznik = 7 then
-				licznik <= 0;
-			end if;
+		if clk9600'event and clk9600 = '1' then
+			TXOUT <= dane_buff(0);
 		end if;
-	when stop =>
-		TXOUT <= '1';
-	when idle => licznik <= 0;
-		end case;
-	end process;
-		
-		
-	
+	elsif state = przesyl then
+		if CLK9600'event and CLK9600 = '1'  then
+			TXOUT <= dane_buff(licznik+1);
+			licznik <= licznik + 1;
+				if licznik = 6 then
+					nextstate <= stop;
+					licznik <= 0;
+				end if;
+		end if;
+	elsif state = stop then
+			TXOUT <= '1';
+	elsif state = idle then 
+			licznik <= 0;
+	end if;
+end process;
 
 end Behavioral;
