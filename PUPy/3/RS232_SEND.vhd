@@ -50,8 +50,8 @@ begin
 	dane<= "0000"&DIP;
 
 czestotliwosc: freq_div  port map( CLK_IN=>CLK,CLK_OUT=>zegar9600);
-synchronizacja: synchronizer port map(SEND_BUF=>SEND,CLK9600=>clk,RST=>RST,SEND_VALID=>wyslij);
-transmisja: transmiter port map( dataIn=>dane,CLK9600=>clk,SEND_VALID=>wyslij,RST=>RST,TXOUT=>RXD_OUT);
+synchronizacja: synchronizer port map(SEND_BUF=>SEND,CLK9600=>zegar9600,RST=>RST,SEND_VALID=>wyslij);
+transmisja: transmiter port map( dataIn=>dane,CLK9600=>zegar9600,SEND_VALID=>wyslij,RST=>RST,TXOUT=>RXD_OUT);
 
 
 
