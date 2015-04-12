@@ -3,28 +3,26 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_ARITH.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
-entity preskaler is
+entity freq_div is
     Port ( clk_in : in  STD_LOGIC;
            clk_out : out  STD_LOGIC);
-end preskaler;
+end freq_div;
 
-architecture Behavioral of preskaler is
-signal licznik : std_logic_vector(20 downto 0) := (others => '0');
-signal wy : std_logic; --sygnal wyjsciowy
-
+architecture Behavioral of freq_div is
+		signal licznik:std_logic_vector(10 downto 0):=(others=>'0');
+		signal tmp :std_logic:='0';
 begin
--- pb to wejscie (przycisk)
--- pb_debounced to stan przycisku (po filtracji drgań)
-process(clk_in)
-	 begin
-		if (clk_in = '1' and clk_in'event) then
-			if (licznik = 1000000) then
-				licznik <= (others => '0');
-				wy <= not wy;
-			else 
-				licznik <= licznik + '1';
-			end if;	
-		end if;
-	 end process;
-clk_out <= wy;	 
+			process(clk_in)
+				begin
+					if(clk_in'event and clk_in = '1') then
+						if licznik ="00000000011" then -- "10100010110" then
+							licznik <= (others=>'0');
+							tmp<= not tmp;
+						else licznik <= licznik + '1';
+						end if;
+					end if;
+				end process;
+			clk_out <= tmp;
+
 end Behavioral;
+
