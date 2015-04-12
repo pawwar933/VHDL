@@ -17,6 +17,7 @@ type state_rs is (start, 			--rozpoczecie transmisji bit po bicie
 signal state :state_rs:=idle;
 signal nextstate: state_rs:=idle;--stan aktualny, stan nastepny
 signal licznik:integer range 0 to 7:=0;
+signal dane_buff: std_logic_vector( 7 downto 0);
 begin
  process(CLK9600,RST,SEND_VALID) -- proces czuly na zmiane clk i rst
   begin
@@ -24,7 +25,8 @@ begin
 	 state <= idle;
 	elsif SEND_VALID'event and SEND_VALID = '0' then
 		state <= start;
-	elsif SEND_VALID'event and SEND_VALID = '1' then
+		dane_buff <= dataIn;
+	elsif  SEND_VALID = '1' then
 		state <= idle;
 	elsif CLK9600'event and CLK9600 = '1' then
 	 state <= nextstate;
@@ -38,8 +40,8 @@ begin
 		TXOUT <= '0';--bit startu
 		nextstate <= przesyl;
 	when przesyl =>
-		if CLK9600'event and CLK9600 = '1' and state = przesyl then
-		TXOUT <= dataIn(licznik);
+		if CLK9600'event and CLK9600 = '1'  then
+		TXOUT <= dane_buff(licznik);
 		licznik <= licznik + 1;
 			if licznik = 6 then
 				nextstate <= stop;
@@ -57,4 +59,3 @@ begin
 	
 
 end Behavioral;
-
