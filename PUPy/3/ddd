@@ -1,0 +1,57 @@
+http://www.inventus.org/posterous/file/2009/03/192538-alse_uart_us.pdf
+- --------------------------
+-- Transmit State Machine
+-- --------------------------
+TX <= Tx TX <= Tx_Reg(0);
+Tx_FSM: process (RST, CLK) Tx_FSM: process (RST, CLK)
+begin
+ if RST='1' then
+ Tx_Reg <= (others => '1'); <= (others => '1');
+ TxBitCnt <= 0; TxBitCnt <= 0;
+ TxFSM <= idle; TxFSM <= idle;
+ TxBusy <= '0'; TxBusy <= '0';
+ RegDin <= (others=>'0'); RegDin <= (others=>'0');
+ elsif rising_edge(CLK) then elsif rising_edge(CLK) then
+ TxBusy <= '1'; -- except when explicitly '0' TxBusy <= '1'; -- except when explicitly '0'
+ case TxFSM case TxFSM is
+ when Idle =>
+ if LD='1' then
+ -- latch the input data immediately. -- latch the input data immediately.
+ RegDin RegDin RegDin <= Din; <= Din;
+ TxBusy <= '1'; <= '1';
+ TxFSM <= Load_ TxFSM <= Load_ <= Load_Tx;
+ else
+ TxBusy <= '0'; <= '0';
+ end if;
+ when Load_Tx when Load_Tx =>
+ if TopTx if TopTx='1' then ='1' then
+ TxFSM <= Shift_ TxFSM <= Shift_ <= Shift_Tx;
+ if parity then
+ -- start + data + parity
+ TxBitCnt <= ( TxBitCnt <= (NDBits + 2);
+ Tx_ Tx
+_Reg <= make_parity( <= make_parity( <= make_parity(RegDin,even) & Din & '0'; ,even) & Din & '0';
+ else
+ TxBitCnt <= ( TxBitCnt <= (NDBits + 1); -- start + data + 1); -- start + data
+ Tx_ Tx
+_reg <= '1' & <= '1' & <= '1' & RegDin & '0';
+ end if;
+ end if;
+ when Shift_Tx when Shift_Tx =>
+ if TopTx if TopTx='1' then ='1' then
+ TxBitCnt <= TxBitCnt <= TxBitCnt TxBitCnt TxBitCnt - 1;
+ Tx_ Tx
+_reg <= '1' & <= '1' & <= '1' & Tx_reg (Tx_reg'high downto reg'high downto reg'high downto 1);
+ if TxBitCnt if TxBitCnt TxBitCnt=1 then =1 then
+ TxFSM <= Stop_ TxFSM <= Stop_ <= Stop_Tx;
+ end if;
+ end if;
+ when Stop_Tx when Stop_Tx =>
+ if TopTx if TopTx='1' then ='1' then
+ TxFSM <= Idle; TxFSM <= Idle;
+ end if;
+ when others =>
+ TxFSM TxFSM TxFSM <= Idle; <= Idle;
+ end case;
+ end if;
+end process;
