@@ -1,0 +1,53 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_ARITH.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+
+entity transmiter is
+    Port ( dataIn : in  STD_LOGIC_VECTOR (7 downto 0);
+           CLK9600,RST,SEND_VALID : in  STD_LOGIC;
+           TXOUT : out  STD_LOGIC:='1');
+end transmiter;
+
+architecture Behavioral of transmiter is
+type state_rs is (start, 			--rozpoczecie transmisji bit po bicie
+						przesyl,			--przesył danych
+						stop,
+						idle); 			--oczekiwanie na rozpoczęcie
+signal state :state_rs:=idle;
+signal nextstate: state_rs:=idle;--stan aktualny, stan nastepny
+signal licznik:integer range 0 to 10:=0;
+signal dane_buff: std_logic_vector( 10 downto 0);
+begin
+	dane_buff(0) <= '0';
+	dane_buff(9) <= '1';
+   process(RST,SEND_VALID)
+		begin
+	if RST = '0' then
+	 nextstate <= idle;	
+	elsif SEND_VALID = '0' then
+	nextstate <= start;
+	dane_buff(8 downto 1) <= dataIn;
+	elsif SEND_VALID = '1' then 
+	nextstate <=idle;
+	end if;
+end process;
+
+   process(CLK9600) -- proces czuly na zmiane clk i rst
+  begin
+	if CLK9600'event and CLK9600 = '1' then
+	 state <= nextstate;
+	end if;
+  end process;
+  
+  process(CLK9600,state)
+   begin
+	if CLK9600'event and CLK9600 = '1' and state = start then
+		 TXOUT <=dane_buff(licznik);
+		 licznik <= licznik + 1;
+	end if;
+	if state = idle then
+		licznik <= 0;
+	end if;
+	end process;
+end Behavioral;
